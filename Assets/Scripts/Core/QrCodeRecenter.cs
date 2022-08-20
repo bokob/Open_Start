@@ -113,7 +113,6 @@ public class QrCodeRecenter : MonoBehaviour {
             // Add offset for recentering
             sessionOrigin.transform.position = currentTarget.transform.position;
             sessionOrigin.transform.rotation = currentTarget.transform.rotation;
-            OnQr();
         }
     }
 
