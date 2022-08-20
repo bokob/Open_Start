@@ -16,38 +16,35 @@ public class QrCodeRecenter : MonoBehaviour {
     [SerializeField]
     private ARCameraManager cameraManager;
     [SerializeField]
-    private List<Target> navigationTargetObjects = new List<Target>();
+    private TargetHandler targetHandler;
+    /*
+    [SerializeField]
+    private List<Target> navigationTargetObjects = new List<Target>(); */
+    [SerializeField]
+    private GameObject qrCodeScanningPanel;
     [SerializeField]
     private TextMeshProUGUI text;
-    [SerializeField]
-    private GameObject QRScanPanel;
 
     private Texture2D cameraImageTexture;
     private IBarcodeReader reader = new BarcodeReader(); // create a barcode reader instance
-    private bool camera_on = false;
-
-    private void Update(){
-        if(Input.GetKeyDown(KeyCode.Space)){
-            SetQrCodeRecenterTarget("IPSE");
-        }
-    }
+    private bool scanningEnabled = false;
     
     private void OnEnable(){
-        cameraManager.frameReceived+=OnCameraFrameReceived;
+        cameraManager.frameReceived += OnCameraFrameReceived;
     }
 
     private void OnDisable(){
-        cameraManager.frameReceived-=OnCameraFrameReceived;
+        cameraManager.frameReceived -= OnCameraFrameReceived;
     }
 
-    public void OnQr(){
-        camera_on = !camera_on;
-        QRScanPanel.SetActive(camera_on);
-        text.text = camera_on ? "QR\nON" : "QR\nOFF";
+    public void OnQr(){                                                 // 버튼 만든거
+        scanningEnabled = !scanningEnabled;
+        qrCodeScanningPanel.SetActive(scanningEnabled);
+        text.text = scanningEnabled ? "QR\nON" : "QR\nOFF";
     }
 
     private void OnCameraFrameReceived(ARCameraFrameEventArgs eventArgs){
-        if(!camera_on){
+        if(!scanningEnabled){
             return;
         }
         if(!cameraManager.TryAcquireLatestCpuImage(out XRCpuImage image)){
@@ -103,18 +100,19 @@ public class QrCodeRecenter : MonoBehaviour {
         // Do something with the result
         if(result != null){
             SetQrCodeRecenterTarget(result.Text);
+            // ToggleScanning();
         }
     }
 
     private void SetQrCodeRecenterTarget(string targetText){
-        Target currentTarget = navigationTargetObjects.Find(x => x.Name.ToLower().Equals(targetText.ToLower()));
+        TargetFacade currentTarget = targetHandler.GetCurrentTargetByTargetText(targetText);
         if(currentTarget != null){
             // Reset position and rotation of ARSession
             session.Reset();
 
             // Add offset for recentering
-            sessionOrigin.transform.position = currentTarget.PositionObject.transform.position;
-            sessionOrigin.transform.rotation = currentTarget.PositionObject.transform.rotation;
+            sessionOrigin.transform.position = currentTarget.transform.position;
+            sessionOrigin.transform.rotation = currentTarget.transform.rotation;
             OnQr();
         }
     }
@@ -122,4 +120,11 @@ public class QrCodeRecenter : MonoBehaviour {
     public void ChangeActiveFloor(string floorEntrance){
         SetQrCodeRecenterTarget(floorEntrance);
     }
+
+    /*  OnQr() 함수랑 같은거임
+    public void ToggleScanning() {
+        scanningEnabled = !scanningEnabled;
+        qrCodeScanningPanel.SetActive(scanningEnabled);
+    }
+    */
 }

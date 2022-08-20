@@ -1,0 +1,88 @@
+{
+    "TargetList": [
+        {
+            "Name": "IPSE",
+            "FloorNumber": 0,
+            "Position": {
+                "x": 7.50,
+                "y": 1.00,
+                "z": 7.8
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+        "Name": "CERT",
+            "FloorNumber": 0,
+            "Position": {
+                "x": -2.00,
+                "y": 1.00,
+                "z": 8.00
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+        "Name": "FirstMainEntrance",
+            "FloorNumber": 0,
+            "Position": {
+                "x": -34.29,
+                "y": 1.00,
+                "z": 8.00
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+        "Name": "SecondMainEntrance",
+            "FloorNumber": 1,
+            "Position": {
+                "x": 13.72,
+                "y": 0.864,
+                "z": 8.00
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+        "Name": "442",
+            "FloorNumber": 1,
+            "Position": {
+                "x": 6.28,
+                "y": 1.00,
+                "z": 8.23
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+        "Name": "437",
+            "FloorNumber": 1,
+            "Position": {
+                "x": -12.17,
+                "y": 1.00,
+                "z": 8.00
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
+}
