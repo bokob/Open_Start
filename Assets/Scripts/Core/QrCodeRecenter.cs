@@ -23,7 +23,13 @@ public class QrCodeRecenter : MonoBehaviour {
     [SerializeField]
     private GameObject qrCodeScanningPanel;
     [SerializeField]
-    private TextMeshProUGUI text;
+    private Button QrToggleButton;
+
+    [SerializeField]
+    private Sprite qroff;
+
+    [SerializeField]
+    private Sprite qron;
 
     private Texture2D cameraImageTexture;
     private IBarcodeReader reader = new BarcodeReader(); // create a barcode reader instance
@@ -40,7 +46,7 @@ public class QrCodeRecenter : MonoBehaviour {
     public void OnQr(){                                                 // 버튼 만든거
         scanningEnabled = !scanningEnabled;
         qrCodeScanningPanel.SetActive(scanningEnabled);
-        text.text = scanningEnabled ? "QR\nON" : "QR\nOFF";
+        QrToggleButton.GetComponent<Image>().sprite = scanningEnabled ? qron : qroff;
     }
 
     private void OnCameraFrameReceived(ARCameraFrameEventArgs eventArgs){

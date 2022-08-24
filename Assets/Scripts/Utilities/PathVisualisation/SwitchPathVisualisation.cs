@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SwitchPathVisualisation : MonoBehaviour {
 
@@ -6,6 +8,8 @@ public class SwitchPathVisualisation : MonoBehaviour {
     private PathLineVisualisation pathLineVis;
     [SerializeField]
     private PathArrowVisualisation arrowLineVis;
+    [SerializeField]
+    private GameObject buttonText;
 
     private int visualisationCounter = 0;
     private GameObject activeVisualisation;
@@ -42,5 +46,6 @@ public class SwitchPathVisualisation : MonoBehaviour {
 
     public void ToggleVisualVisibility() {
         activeVisualisation.SetActive(!activeVisualisation.activeSelf);
+        buttonText.GetComponent<TextMeshProUGUI>().text = "  " + (activeVisualisation.activeSelf ? "ON" : "OFF");
     }
 }
