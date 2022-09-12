@@ -24,7 +24,7 @@ public class PathLineVisualisation : MonoBehaviour {
     private void AddOffsetToPath() {
         calculatedPathAndOffset = new Vector3[path.corners.Length];
         for (int i = 0; i < path.corners.Length; i++) {
-            calculatedPathAndOffset[i] = new Vector3(path.corners[i].x, transform.position.y, path.corners[i].z);
+            calculatedPathAndOffset[i] = path.corners[i] + new Vector3(0, transform.position.y, 0);
         }
     }
 
