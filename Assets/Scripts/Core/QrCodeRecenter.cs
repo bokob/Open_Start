@@ -25,6 +25,8 @@ public class QrCodeRecenter : MonoBehaviour {
     [SerializeField]
     private Button QrToggleButton;
 
+    public Button ToggleMusinsa;
+
     [SerializeField]
     private Sprite qroff;
 
@@ -111,14 +113,24 @@ public class QrCodeRecenter : MonoBehaviour {
     }
 
     private void SetQrCodeRecenterTarget(string targetText){
-        TargetFacade currentTarget = targetHandler.GetCurrentTargetByTargetText(targetText);
-        if(currentTarget != null){
-            // Reset position and rotation of ARSession
-            session.Reset();
 
-            // Add offset for recentering
-            sessionOrigin.transform.position = currentTarget.transform.position;
-            sessionOrigin.transform.rotation = currentTarget.transform.rotation;
+        if(targetText.Contains("https"))                                // URL인 경우
+        {
+            GameObject.FindObjectOfType<Hyperlinks>().url = targetText; // 주소를 넣어준다.
+            Click();    // 무신사 버튼 누르기
+            GameObject.FindObjectOfType<Hyperlinks>().url = "https://www.musinsa.com/app/"; // 기본 주소로 초기화    
+        }
+        else                                                            // 목적지인 경우
+        {
+            TargetFacade currentTarget = targetHandler.GetCurrentTargetByTargetText(targetText);
+            if(currentTarget != null){
+                // Reset position and rotation of ARSession
+                session.Reset();
+
+                // Add offset for recentering
+                sessionOrigin.transform.position = currentTarget.transform.position;
+                sessionOrigin.transform.rotation = currentTarget.transform.rotation;
+            }
         }
     }
 
@@ -132,4 +144,11 @@ public class QrCodeRecenter : MonoBehaviour {
         qrCodeScanningPanel.SetActive(scanningEnabled);
     }
     */
+
+    public void Click()
+    {
+        ToggleMusinsa = GetComponent<Button>();
+        ToggleMusinsa = GameObject.Find("Musinsa").GetComponent<Button>();
+        ToggleMusinsa.onClick.Invoke();
+    }
 }

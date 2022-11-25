@@ -26,9 +26,9 @@ public class TargetHandler : MonoBehaviour {
 
     private void GenerateTargetItems() {
         IEnumerable<Target> targets = GenerateTargetDataFromSource();
-        
+
         foreach (Target target in targets) {
-            Debug.Log(target.Name);
+            //Debug.Log(target.Name);
             currentTargetItems.Add(CreateTargetFacade(target));
         }
     }
@@ -39,7 +39,9 @@ public class TargetHandler : MonoBehaviour {
 
     private TargetFacade CreateTargetFacade(Target target) {
         GameObject targetObject = Instantiate(targetObjectPrefab, targetObjectsParentTransforms[target.FloorNumber], false);
-        targetObject.SetActive(true);
+        
+        targetObject.SetActive(true); 
+
         targetObject.name = $"{target.FloorNumber} - {target.Name}";
         targetObject.transform.localPosition = target.Position;
         targetObject.transform.localRotation = Quaternion.Euler(target.Rotation);
